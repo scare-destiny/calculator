@@ -23,10 +23,6 @@ function multiply(x, y) {
 }
 
 function divide(x, y) {
-	// if (Number(y) === 0) {
-	// 	clearAllData();
-	// 	return;
-	// }
 	return Number(x) / Number(y);
 }
 
@@ -41,11 +37,9 @@ function operate(op, num1, num2) {
 			return multiply(num1, num2);
 		case '/':
 			if (Number(num2) === 0) {
-				return;
+				return null;
 			}
-			else {
-				return divide(num1, num2);
-			}
+			else return divide(num1, num2);
 	}
 }
 
@@ -64,7 +58,7 @@ function setSecondNum(num) {
 }
 
 function setNums(input) {
-	if (isOpClicked && firstNum) {
+	if (isOpClicked && (firstNum || firstNum === 0)) {
 		if (!secondNum) {
 			clearDisplay()
 		}
@@ -76,14 +70,14 @@ function setNums(input) {
 }
 
 function showResult(result) {
-	if (result) {
+	if (userOp === '/' && secondNum === '0') {
+		display.value = "error noticed ☹️";
+		setTimeout(clearAllData, 700);
+	}
+	else {
 		display.value = result;
 		firstNum = result;
 		secondNum = '';
-	}
-	else {
-		display.value = "error noticed ☹️";
-		setTimeout(clearAllData, 700);
 	}
 }
 
