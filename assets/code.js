@@ -41,8 +41,7 @@ function operate(op, num1, num2) {
 			return multiply(num1, num2);
 		case '/':
 			if (Number(num2) === 0) {
-				console.log(op, num1, num2);
-				return display.value = 'rrrr';
+				return;
 			}
 			else {
 				return divide(num1, num2);
