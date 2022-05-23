@@ -56,8 +56,8 @@ function setSecondNum(num) {
 }
 
 function setNums(input) {
-	if (isOpClicked && firstNum !== undefined) {
-		if (secondNum === undefined) {
+	if (isOpClicked && firstNum) {
+		if (!secondNum) {
 			clearDisplay()
 		}
 		setSecondNum(input);
@@ -81,7 +81,7 @@ nums.forEach(num => {
 
 ops.forEach(op => {
 	op.addEventListener('click', e => {
-		if (secondNum !== undefined && isOpClicked) {
+		if (secondNum && isOpClicked) {
 			let result = operate(userOp, firstNum, secondNum);
 			showResult(result);
 			userOp = e.target.value;
