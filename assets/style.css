@@ -8,12 +8,11 @@ body {
 
 .container {
 	display: grid;
-	align-items: center;
-	justify-items: center;
+	justify-items: stretch;
 	grid-template-columns: repeat(4, 1fr);
 
 }
 
-.display {
+input {
 	grid-column: 1/5;
 }
