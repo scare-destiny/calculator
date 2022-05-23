@@ -1,3 +1,10 @@
+:root {
+	--first-main-color: #061A40;
+	--second-main-color: #E8F8C1;
+	--third-main-color: #B9D6F2;
+	--fourth-main-color: #FCAA67;
+}
+
 body {
 	margin: 0;
 	min-height: 100vh;
@@ -9,10 +16,40 @@ body {
 .container {
 	display: grid;
 	justify-items: stretch;
-	grid-template-columns: repeat(4, 1fr);
+	grid-template-columns: repeat(4, minmax(15px, 90px));
+	grid-template-rows: repeat(5, minmax(15px, 90px));
+	border: 3px solid var(--first-main-color);
 
 }
 
+input, ::placeholder {
+	font-size: 3rem;
+	color: var(--first-main-color);
+}
+
 input {
+	direction: rtl;
+	-webkit-appearance: none;
+	cursor: auto;
 	grid-column: 1/5;
+	border: 5px solid var(--first-main-color);
+	background: var(--second-main-color);
+}
+
+input:focus {
+	outline: none;
+}
+
+button {
+	font-size: 2rem;
+	background-color: var(--third-main-color);
+	border: 2px solid var(--first-main-color);
+}
+
+button:active {
+	opacity: 0.4;
+}
+
+.op, #calc {
+	background-color: var(--fourth-main-color);
 }

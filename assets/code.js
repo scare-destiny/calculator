@@ -2,6 +2,7 @@ const display = document.getElementById('display');
 const nums = Array.from(document.getElementsByClassName('num'));
 const ops = Array.from(document.getElementsByClassName('op'));
 const calc = document.getElementById('calc');
+const clrBtn = document.getElementById('ac');
 
 let firstNum;
 let secondNum;
@@ -14,15 +15,19 @@ function add(x, y) {
 }
 
 function subtract(x, y) {
-	return x - y;
+	return Number(x) - Number(y);
 }
 
 function multiply(x, y) {
-	return x * y;
+	return Number(x) * Number(y);
 }
 
 function divide(x, y) {
-	return x / y;
+	// if (Number(y) === 0) {
+	// 	clearAllData();
+	// 	return;
+	// }
+	return Number(x) / Number(y);
 }
 
 
@@ -35,9 +40,13 @@ function operate(op, num1, num2) {
 		case '*':
 			return multiply(num1, num2);
 		case '/':
-			return divide(num1, num2);
-		default:
-			console.log('Operator not found, srry:(');
+			if (Number(num2) === 0) {
+				console.log(op, num1, num2);
+				return display.value = 'rrrr';
+			}
+			else {
+				return divide(num1, num2);
+			}
 	}
 }
 
@@ -68,10 +77,32 @@ function setNums(input) {
 }
 
 function showResult(result) {
-	display.value = result;
-	firstNum = result;
-	secondNum = undefined;
+	if (result) {
+		display.value = result;
+		firstNum = result;
+		secondNum = '';
+	}
+	else {
+		display.value = "error noticed ☹️";
+		setTimeout(clearAllData, 700);
+	}
 }
+
+function getResult(op, x, y) {
+	let result = operate(op, x, y)
+	if (!Number.isInteger(result) && result) {
+		result = Math.round(result * 100) / 100
+	}
+	showResult(result)
+}
+
+function clearAllData() {
+	isOpClicked = false;
+	firstNum = '';
+	secondNum = '';
+	clearDisplay();
+}
+
 
 nums.forEach(num => {
 	num.addEventListener('click', e => {
@@ -82,21 +113,23 @@ nums.forEach(num => {
 ops.forEach(op => {
 	op.addEventListener('click', e => {
 		if (secondNum && isOpClicked) {
-			let result = operate(userOp, firstNum, secondNum);
-			showResult(result);
+			getResult(userOp, firstNum, secondNum)
 			userOp = e.target.value;
 		}
 		else {
 			isOpClicked = true;
 			userOp = e.target.value;
-			console.log(firstNum, userOp);
 		}
 	})
 })
 
 calc.addEventListener('click', e => {
-	if (firstNum !== undefined && secondNum !== undefined && isOpClicked === true) {
-		let result = operate(userOp, firstNum, secondNum);
-		showResult(result)
+	if (firstNum && secondNum && isOpClicked) {
+		getResult(userOp, firstNum, secondNum)
 	}
 })
+
+clrBtn.addEventListener('click', e => {
+	clearAllData()
+})
+
