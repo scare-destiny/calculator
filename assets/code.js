@@ -10,23 +10,23 @@ let userOp
 
 let isOpClicked = false
 
-function add (x, y) {
+function add(x, y) {
   return Number(x) + Number(y)
 }
 
-function subtract (x, y) {
+function subtract(x, y) {
   return Number(x) - Number(y)
 }
 
-function multiply (x, y) {
+function multiply(x, y) {
   return Number(x) * Number(y)
 }
 
-function divide (x, y) {
+function divide(x, y) {
   return Number(x) / Number(y)
 }
 
-function operate (op, num1, num2) {
+function operate(op, num1, num2) {
   switch (op) {
     case '+':
       return add(num1, num2)
@@ -41,21 +41,23 @@ function operate (op, num1, num2) {
   }
 }
 
-function clearDisplay () {
+function clearDisplay() {
   display.value = ''
 }
 
-function setFirstNum (num) {
+function setFirstNum(num) {
   display.value += num
   firstNum = display.value
+  console.log(`first num is ${firstNum}`)
 }
 
-function setSecondNum (num) {
+function setSecondNum(num) {
   display.value += num
   secondNum = display.value
+  console.log(`second num is ${secondNum}`)
 }
 
-function setNums (input) {
+function setNums(input) {
   if (isOpClicked && (firstNum || firstNum === 0)) {
     if (!secondNum) {
       clearDisplay()
@@ -66,7 +68,7 @@ function setNums (input) {
   }
 }
 
-function showResult (result) {
+function showResult(result) {
   if (userOp === '/' && secondNum === '0') {
     display.value = 'error noticed ☹️'
     setTimeout(clearAllData, 700)
@@ -77,7 +79,7 @@ function showResult (result) {
   }
 }
 
-function getResult (op, x, y) {
+function getResult(op, x, y) {
   let result = operate(op, x, y)
   if (!Number.isInteger(result) && result) {
     result = Math.round(result * 100) / 100
@@ -85,7 +87,7 @@ function getResult (op, x, y) {
   showResult(result)
 }
 
-function clearAllData () {
+function clearAllData() {
   isOpClicked = false
   firstNum = ''
   secondNum = ''
@@ -111,7 +113,7 @@ ops.forEach((op) => {
 })
 
 calc.addEventListener('click', (e) => {
-  if (firstNum && secondNum && isOpClicked) {
+  if (secondNum && isOpClicked) {
     getResult(userOp, firstNum, secondNum)
   }
 })
